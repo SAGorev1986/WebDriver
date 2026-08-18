@@ -1,10 +1,3 @@
-# Compiled class files
-*.class
-
-# Maven
-target/
-!.mvn/wrapper/maven-wrapper.jar
-
 # IDEA
 .idea/
 *.iml
@@ -12,19 +5,20 @@ target/
 *.ipr
 out/
 
-# Eclipse
+# Eclipse (если не используется - можно удалить)
 .classpath
 .project
 .settings/
 bin/
 
-# OS files
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# OS
 .DS_Store
 Thumbs.db
-
-# Selenium
-chromedriver.exe
-geckodriver.exe
-
-# Logs
-*.log
