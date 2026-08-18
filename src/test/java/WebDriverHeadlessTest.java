@@ -12,7 +12,6 @@ import java.time.Duration;
 public class WebDriverHeadlessTest {
     WebDriver driver;
 
-    // Выносим URL в константу (в идеале - из config/properties)
     private static final String BASE_URL = System.getProperty("test.url",
             "https://otus.home.kartushin.su/training.html");
 
@@ -24,7 +23,7 @@ public class WebDriverHeadlessTest {
     @BeforeEach
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new"); // Современный headless режим
+        options.addArguments("--headless=new");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
     }
@@ -32,7 +31,7 @@ public class WebDriverHeadlessTest {
     @AfterEach
     public void tearDown() {
         if (driver != null) {
-            driver.quit(); // quit вместо close закрывает все окна и драйвер
+            driver.quit();
         }
     }
 
