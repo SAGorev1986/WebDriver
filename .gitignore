@@ -5,7 +5,6 @@
 *.ipr
 out/
 
-# Eclipse (если не используется - можно удалить)
 .classpath
 .project
 .settings/
