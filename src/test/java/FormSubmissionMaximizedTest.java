@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class WebDriverMaximizedModeTest {
+public class FormSubmissionMaximizedTest {
     WebDriver driver;
 
     private static final String BASE_URL = System.getProperty("test.url",
