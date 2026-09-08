@@ -2,6 +2,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class WebDriverHeadlessTest {
+public class ModalWindowKioskTest {
     WebDriver driver;
 
     private static final String BASE_URL = System.getProperty("test.url",
@@ -23,9 +24,8 @@ public class WebDriverHeadlessTest {
     @BeforeEach
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new");
+        options.addArguments("--kiosk");
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
     }
 
     @AfterEach
@@ -36,14 +36,21 @@ public class WebDriverHeadlessTest {
     }
 
     @Test
-    public void testTextInputInHeadlessMode() {
+    public void testModalWindowInKioskMode() {
         driver.get(BASE_URL);
 
-        var inputField = driver.findElement(By.id("textInput"));
-        inputField.sendKeys("ОТУС");
+        WebElement openModalBtn = driver.findElement(By.id("openModalBtn"));
+        openModalBtn.click();
 
-        String actualText = inputField.getAttribute("value");
-        Assertions.assertEquals("ОТУС", actualText,
-                "Текст не соответствует введенному: ОТУС!");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement modalWindow = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(By.className("modal-content"))
+        );
+
+        Assertions.assertTrue(modalWindow.isDisplayed(),
+                "Модальное окно должно быть отображено");
+
+        String modalText = modalWindow.getText();
+        System.out.println("Текст модального окна: " + modalText);
     }
 }
